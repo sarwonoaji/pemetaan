@@ -60,12 +60,6 @@
 
                         </h5>
 
-                        <div class="category-subtitle">
-
-                            Tampilkan semua lokasi
-
-                        </div>
-
                     </div>
 
                     <div class="category-button">
@@ -102,7 +96,7 @@
                 }
 
                 elseif(
-                    str_contains($category, 'coffee')
+                    str_contains($category, 'coffe shop')
                     || str_contains($category, 'cafe')
                     || str_contains($category, 'kopi')
                 ){
@@ -110,7 +104,7 @@
                 }
 
                 elseif(
-                    str_contains($category, 'masjid')
+                    str_contains($category, 'Tempat Ibadah')
                     || str_contains($category, 'mushola')
                 ){
                     $icon = 'fas fa-mosque';
@@ -190,12 +184,6 @@
 
                         </h5>
 
-                        <div class="category-subtitle">
-
-                            Jelajahi lokasi maps
-
-                        </div>
-
                     </div>
 
 
@@ -233,182 +221,417 @@
 
 <style>
 
-    body{
-        background: #f5f7ff;
+body{
+    background: #ECFDF5;
+
+    font-family: 'Poppins', sans-serif;
+
+    overflow-x: hidden;
+}
+
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container-fluid{
+    padding:
+    20px 18px 120px;
+}
+
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header-badge{
+    width: 62px;
+    height: 62px;
+
+    margin: auto;
+
+    border-radius: 22px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #047857,
+        #10B981
+    );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    box-shadow:
+    0 12px 24px rgba(16,185,129,.28);
+}
+
+
+
+h2{
+    color: #064E3B;
+
+    font-weight: 700;
+
+    font-size: 24px;
+}
+
+
+
+.text-muted{
+    color: #6B7280!important;
+
+    font-size: 13px;
+}
+
+
+
+/* =========================
+   CATEGORY GRID
+========================= */
+
+.row{
+    margin-left: -6px;
+    margin-right: -6px;
+}
+
+.row > div{
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+
+
+/* =========================
+   CARD
+========================= */
+
+.category-card{
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 18px 12px;
+
+    min-height: 150px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition: .3s ease;
+
+    border: 1px solid #D1FAE5;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.05);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    text-align: center;
+}
+
+
+
+/* HOVER */
+.category-card:hover{
+    transform:
+    translateY(-5px)
+    scale(1.02);
+
+    box-shadow:
+    0 18px 40px rgba(16,185,129,.18);
+}
+
+
+
+/* GLOW */
+.category-card::before{
+    content: '';
+
+    position: absolute;
+
+    top: -50%;
+    left: -50%;
+
+    width: 200%;
+    height: 200%;
+
+    background:
+    linear-gradient(
+        45deg,
+        transparent,
+        rgba(255,255,255,.22),
+        transparent
+    );
+
+    transform: rotate(25deg);
+
+    opacity: 0;
+
+    transition: .5s;
+}
+
+.category-card:hover::before{
+    opacity: 1;
+
+    animation: shine 1s linear;
+}
+
+
+
+/* =========================
+   ICON
+========================= */
+
+.category-icon{
+    width: 58px;
+    height: 58px;
+
+    border-radius: 20px;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    margin:
+    0 auto 16px;
+
+    box-shadow:
+    0 10px 24px rgba(0,0,0,.12);
+}
+
+
+
+/* ICON COLOR */
+.col-6:nth-child(1) .category-icon{
+    background:
+    linear-gradient(
+        135deg,
+        #047857,
+        #10B981
+    );
+}
+
+.col-6:nth-child(2) .category-icon{
+    background:
+    linear-gradient(
+        135deg,
+        #7C3AED,
+        #8B5CF6
+    );
+}
+
+.col-6:nth-child(3) .category-icon{
+    background:
+    linear-gradient(
+        135deg,
+        #EC4899,
+        #F43F5E
+    );
+}
+
+.col-6:nth-child(4) .category-icon{
+    background:
+    linear-gradient(
+        135deg,
+        #F59E0B,
+        #FB923C
+    );
+}
+
+.col-6:nth-child(5) .category-icon{
+    background:
+    linear-gradient(
+        135deg,
+        #0EA5E9,
+        #06B6D4
+    );
+}
+
+.col-6:nth-child(6) .category-icon{
+    background:
+    linear-gradient(
+        135deg,
+        #14B8A6,
+        #10B981
+    );
+}
+
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.category-content{
+    flex: 1;
+}
+
+
+
+.category-title{
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #064E3B;
+
+    margin-bottom: 6px;
+
+    line-height: 1.5;
+}
+
+
+
+.category-subtitle{
+    font-size: 11px;
+
+    color: #6B7280;
+
+    margin-bottom: 18px;
+}
+
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.category-button{
+    background: #ECFDF5;
+
+    border-radius: 14px;
+
+    padding: 10px 12px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    color: #059669;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .3s ease;
+}
+
+
+
+.category-card:hover .category-button{
+    background:
+    linear-gradient(
+        135deg,
+        #047857,
+        #10B981
+    );
+
+    color: white;
+}
+
+
+
+/* =========================
+   SHINE
+========================= */
+
+@keyframes shine{
+
+    0%{
+        transform:
+        translateX(-100%)
+        rotate(25deg);
     }
 
+    100%{
+        transform:
+        translateX(100%)
+        rotate(25deg);
+    }
+
+}
 
 
-    /* =========================
-       HEADER
-    ========================= */
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:576px){
+
+    .container-fluid{
+        padding:
+        18px 14px 120px;
+    }
 
     .header-badge{
-        width: 72px;
-        height: 72px;
-        margin: auto;
-        border-radius: 24px;
-        background: linear-gradient(
-            135deg,
-            #4e73df,
-            #224abe
-        );
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 28px;
-        box-shadow: 0 10px 25px rgba(78,115,223,.3);
+        width: 52px;
+        height: 52px;
+
+        border-radius: 18px;
+
+        font-size: 20px;
     }
 
+    h2{
+        font-size: 20px;
+    }
 
-
-    /* =========================
-       CARD
-    ========================= */
+    .text-muted{
+        font-size: 12px;
+    }
 
     .category-card{
-        background: white;
-        border-radius: 26px;
-        padding: 22px 18px;
-        min-height: 280px;
-        position: relative;
-        overflow: hidden;
-        transition: .25s ease;
-        border: 1px solid #edf0ff;
-        box-shadow: 0 10px 30px rgba(0,0,0,.04);
+        min-height: 150px;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        border-radius: 20px;
+
+        padding: 14px 10px;
     }
-
-    .category-card:hover{
-        transform: translateY(-6px);
-        box-shadow: 0 20px 35px rgba(0,0,0,.08);
-    }
-
-
-
-    /* BG EFFECT */
-    .category-card::before{
-        content: '';
-        position: absolute;
-        top: -40px;
-        right: -40px;
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: rgba(78,115,223,.06);
-    }
-
-
-
-    /* =========================
-       ICON
-    ========================= */
 
     .category-icon{
-        width: 65px;
-        height: 65px;
-        border-radius: 22px;
-        background: linear-gradient(
-            135deg,
-            #4e73df,
-            #224abe
-        );
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        margin-bottom: 20px;
-        box-shadow: 0 12px 20px rgba(78,115,223,.25);
-    }
+        width: 48px;
+        height: 48px;
 
+        border-radius: 16px;
 
+        font-size: 18px;
 
-    /* =========================
-       CONTENT
-    ========================= */
-
-    .category-content{
-        flex: 1;
+        margin-bottom: 12px;
     }
 
     .category-title{
-        font-size: 18px;
-        font-weight: 700;
-        color: #2d3748;
-        margin-bottom: 8px;
-        line-height: 1.5;
+        font-size: 11px;
     }
 
     .category-subtitle{
-        font-size: 13px;
-        color: #8a94a6;
-        margin-bottom: 22px;
+        font-size: 10px;
     }
-
-
-
-    /* =========================
-       BUTTON
-    ========================= */
 
     .category-button{
-        background: #f4f7ff;
-        border-radius: 14px;
-        padding: 12px 14px;
-        font-size: 13px;
-        font-weight: 600;
-        color: #4e73df;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: .2s;
+        font-size: 10px;
+
+        padding: 8px 10px;
+
+        border-radius: 12px;
     }
 
-    .category-card:hover .category-button{
-        background: #4e73df;
-        color: white;
-    }
-
-
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media(max-width:768px){
-
-        .category-card{
-            padding: 18px 14px;
-            border-radius: 22px;
-            min-height: 240px;
-        }
-
-        .category-icon{
-            width: 55px;
-            height: 55px;
-            font-size: 20px;
-            border-radius: 18px;
-        }
-
-        .category-title{
-            font-size: 15px;
-        }
-
-        .category-subtitle{
-            font-size: 12px;
-        }
-
-        .category-button{
-            font-size: 12px;
-            padding: 10px;
-        }
-
-    }
+}
 
 </style>
 

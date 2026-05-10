@@ -2,88 +2,120 @@
 
 @section('content')
 
+<div class="maps-app">
 
+    {{-- SEARCH BAR --}}
+    <div class="top-search">
 
-{{-- SEARCH --}}
-<div class="container-fluid py-3">
+        <div class="search-wrapper">
 
-    <div class="card shadow border-0 search-card">
-
-        <div class="card-body">
-
-            <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-
-                {{-- TITLE --}}
-                <div>
-
-                    <h4 class="font-weight-bold mb-1">
-
-                        {{ $category }}
-
-                    </h4>
-
-                    <div class="text-muted small">
-
-                        Kabupaten {{ $kabupaten }}
-
-                    </div>
-
-                </div>
-
-
-
-                {{-- BACK --}}
-                <a href="{{ route(
-                    'public.kabupaten.category',
-                    $kabupaten
-                ) }}"
-                   class="btn btn-primary btn-sm mt-2 mt-md-0">
-
-                    <i class="fas fa-arrow-left"></i>
-                    Category
-
-                </a>
-
+            <div class="search-icon">
+                <i class="fas fa-map-marker-alt"></i>
             </div>
 
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Telusuri di sini"
+            >
 
+            <button class="mic-btn">
 
-            {{-- SEARCH --}}
-            <div class="input-group">
+                <i class="fas fa-microphone"></i>
 
-                <input type="text"
-                       id="searchInput"
-                       class="form-control border-0 search-input"
-                       placeholder="Cari lokasi, category, kecamatan...">
-
-                <div class="input-group-append">
-
-                    <span class="input-group-text bg-white border-0">
-
-                        <i class="fas fa-search text-primary"></i>
-
-                    </span>
-
-                </div>
-
-            </div>
+            </button>
 
         </div>
 
     </div>
 
-</div>
+
+
+    {{-- MAP --}}
+    <div id="map"></div>
 
 
 
-{{-- MAP --}}
-<div class="container-fluid pb-4">
+    {{-- DETAIL BOTTOM SHEET --}}
+    <div id="locationDetail"
+         class="location-detail hidden">
 
-    <div class="card shadow border-0 overflow-hidden">
+        {{-- DRAG --}}
+        <div class="drag-line"></div>
 
-        <div class="card-body p-2">
 
-            <div id="map"></div>
+
+        {{-- HEADER --}}
+        <div class="detail-header">
+
+            <div>
+
+                <h3 id="detailTitle">
+                    Nama Lokasi
+                </h3>
+
+                <div id="detailCategory"
+                     class="detail-category">
+
+                    Category
+
+                </div>
+
+            </div>
+
+
+
+            <button id="closeDetail"
+                    class="close-detail">
+
+                <i class="fas fa-times"></i>
+
+            </button>
+
+        </div>
+
+
+
+        {{-- IMAGE --}}
+        <div class="detail-image">
+
+            <img
+                id="detailImage"
+                src=""
+            >
+
+        </div>
+
+
+
+        {{-- INFO --}}
+        <div class="detail-info">
+
+            <div id="detailKecamatan">
+                Kecamatan
+            </div>
+
+            <div id="detailAlamat">
+                Alamat
+            </div>
+
+        </div>
+
+
+
+        {{-- ACTION --}}
+        <div class="detail-action">
+
+            <a href="#"
+               id="detailRoute"
+               target="_blank"
+               class="route-btn">
+
+                <i class="fas fa-route"></i>
+
+                Rute Lokasi
+
+            </a>
 
         </div>
 
@@ -102,49 +134,410 @@
 
 <style>
 
-    body{
-        background: #f5f6ff;
+/* =========================
+   RESET
+========================= */
+
+html,
+body{
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    font-family: 'Poppins', sans-serif;
+
+    background: #f5f5f5;
+
+    overflow: hidden;
+}
+
+
+
+/* =========================
+   APP
+========================= */
+
+.maps-app{
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100dvh;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+
+/* =========================
+   MAP
+========================= */
+
+#map{
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+}
+
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.top-search{
+    position: absolute;
+
+    top: max(12px, env(safe-area-inset-top));
+
+    left: 0;
+    right: 0;
+
+    z-index: 999;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 0 12px;
+}
+
+
+
+/* SEARCH WRAPPER */
+.search-wrapper{
+    width: 100%;
+
+    max-width: 520px;
+
+    height: 52px;
+
+    background:
+    rgba(28,28,28,.95);
+
+    border-radius: 18px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 12px;
+
+    backdrop-filter: blur(14px);
+
+    box-shadow:
+    0 8px 24px rgba(0,0,0,.25);
+}
+
+
+
+/* SEARCH ICON */
+.search-icon{
+    color: #10B981;
+
+    font-size: 18px;
+
+    margin-right: 10px;
+}
+
+
+
+/* INPUT */
+.search-wrapper input{
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 14px;
+}
+
+
+
+/* PLACEHOLDER */
+.search-wrapper input::placeholder{
+    color: rgba(255,255,255,.7);
+}
+
+
+
+/* MIC */
+.mic-btn{
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563EB,
+        #3B82F6
+    );
+
+    color: white;
+
+    font-size: 13px;
+
+    flex-shrink: 0;
+}
+
+
+
+/* =========================
+   DETAIL SHEET
+========================= */
+
+.location-detail{
+    position: absolute;
+
+    left: 50%;
+
+    bottom:
+    calc(
+        62px +
+        env(safe-area-inset-bottom)
+    );
+
+    transform:
+    translateX(-50%);
+
+    width: calc(100% - 16px);
+
+    max-width: 460px;
+
+    background: #111111;
+
+    border-radius: 24px;
+
+    z-index: 999;
+
+    padding: 12px;
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,.35);
+
+    transition: .28s ease;
+}
+
+
+
+/* HIDDEN */
+.hidden{
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform:
+    translateX(-50%)
+    translateY(120%);
+}
+
+
+
+/* =========================
+   DRAG LINE
+========================= */
+
+.drag-line{
+    width: 50px;
+    height: 4px;
+
+    background:
+    rgba(255,255,255,.16);
+
+    border-radius: 30px;
+
+    margin: 0 auto 12px;
+}
+
+
+
+/* =========================
+   HEADER
+========================= */
+
+.detail-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+
+
+/* TITLE */
+.detail-header h3{
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    margin-bottom: 4px;
+}
+
+
+
+/* CATEGORY */
+.detail-category{
+    color: #10B981;
+
+    font-size: 12px;
+}
+
+
+
+/* CLOSE */
+.close-detail{
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background:
+    rgba(255,255,255,.08);
+
+    color: white;
+
+    font-size: 13px;
+
+    flex-shrink: 0;
+}
+
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.detail-image{
+    margin-bottom: 12px;
+}
+
+
+
+.detail-image img{
+    width: 100%;
+
+    height: 95px;
+
+    object-fit: cover;
+
+    border-radius: 14px;
+}
+
+
+
+/* =========================
+   INFO
+========================= */
+
+.detail-info{
+    color: rgba(255,255,255,.74);
+
+    line-height: 1.6;
+
+    font-size: 12px;
+
+    margin-bottom: 14px;
+}
+
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.route-btn{
+    height: 42px;
+
+    border-radius: 12px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #06B6D4,
+        #2563EB
+    );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+
+/* =========================
+   LEAFLET
+========================= */
+
+.leaflet-control-attribution,
+.leaflet-control-zoom,
+.leaflet-popup{
+    display: none!important;
+}
+
+
+
+/* =========================
+   TABLET+
+========================= */
+
+@media(min-width:768px){
+
+    .search-wrapper{
+        height: 58px;
     }
 
-    .search-card{
-        border-radius: 22px;
+    .search-wrapper input{
+        font-size: 16px;
     }
 
-    .search-input{
-        height: 52px;
-        font-size: 15px;
-        box-shadow: none!important;
-        border-radius: 18px;
+    .location-detail{
+        padding: 16px;
+
+        border-radius: 28px;
     }
 
-    .input-group-text{
-        border-radius: 18px;
+    .detail-header h3{
+        font-size: 20px;
     }
 
-    #map{
-        width: 100%;
-        height: calc(100vh - 220px);
-        border-radius: 20px;
+    .detail-image img{
+        height: 160px;
     }
 
-
-
-    /* MOBILE */
-    @media(max-width: 768px){
-
-        #map{
-            height: calc(100vh - 250px);
-        }
-
-        .search-input{
-            height: 48px;
-            font-size: 14px;
-        }
-
-    }
+}
 
 </style>
-
 @endpush
 
 
@@ -155,10 +548,8 @@
 
 <script>
 
-
-
 // =====================================
-// DEFAULT CENTER
+// DEFAULT LOCATION
 // =====================================
 
 const defaultLat =
@@ -173,15 +564,17 @@ const defaultLng =
 // INIT MAP
 // =====================================
 
-const map = L.map('map').setView(
+const map = L.map('map', {
+    zoomControl: false
+}).setView(
     [defaultLat, defaultLng],
-    11
+    13
 );
 
 
 
 // =====================================
-// TILE
+// TILE LAYER
 // =====================================
 
 L.tileLayer(
@@ -190,6 +583,23 @@ L.tileLayer(
         attribution: '&copy; OpenStreetMap'
     }
 ).addTo(map);
+
+
+
+// =====================================
+// CUSTOM ICON
+// =====================================
+
+const customIcon = L.icon({
+
+    iconUrl:
+    'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+
+    iconSize: [42,42],
+
+    iconAnchor: [21,42]
+
+});
 
 
 
@@ -203,87 +613,97 @@ const markers = [];
 
 @foreach($locations as $item)
 
-    const marker{{ $item->id }} = L.marker([
+const marker{{ $item->id }} = L.marker(
+    [
         {{ $item->latitude }},
         {{ $item->longitude }}
-    ]).addTo(map);
+    ],
+    {
+        icon: customIcon
+    }
+).addTo(map);
 
-    marker{{ $item->id }}.bindPopup(`
 
-        <div style="min-width:220px;">
 
-            @if($item->foto)
 
-                <img src="{{ asset('img/location/'.$item->foto) }}"
-                     width="100%"
-                     height="120"
-                     style="
-                        object-fit:cover;
-                        border-radius:10px;
-                        margin-bottom:10px;
-                     ">
+/* CLICK MARKER */
+marker{{ $item->id }}.on('click', function(){
 
-            @endif
+    $('#detailTitle').text(
+        '{{ $item->nama_lokasi }}'
+    );
 
-            <div class="font-weight-bold mb-1">
+    $('#detailCategory').text(
+        '{{ $item->category }}'
+    );
 
-                {{ $item->nama_lokasi }}
+    $('#detailKecamatan').text(
+        'Kecamatan {{ $item->kecamatan }}'
+    );
 
-            </div>
+    $('#detailAlamat').text(
+        '{{ $item->jalan }}'
+    );
 
-            <div class="text-primary small mb-1">
+    $('#detailImage').attr(
+        'src',
+        '{{ asset("img/location/".$item->foto) }}'
+    );
 
-                {{ $item->category }}
+    $('#detailRoute').attr(
+        'href',
+        'https://www.google.com/maps/dir/?api=1&destination={{ $item->latitude }},{{ $item->longitude }}'
+    );
 
-            </div>
 
-            <div class="small text-muted mb-1">
 
-                Kecamatan {{ $item->kecamatan }}
+    $('#locationDetail')
+        .removeClass('hidden');
 
-            </div>
 
-            <div class="small text-muted mb-2">
 
-                {{ $item->jalan }}
+    map.flyTo(
+        [
+            {{ $item->latitude }},
+            {{ $item->longitude }}
+        ],
+        17,
+        {
+            duration: 1.2
+        }
+    );
 
-            </div>
+});
 
-            <a href="https://www.google.com/maps/dir/?api=1&destination={{ $item->latitude }},{{ $item->longitude }}"
-               target="_blank"
-               class="btn btn-primary btn-sm w-100">
 
-                <i class="fas fa-route"></i>
-                Rute Lokasi
 
-            </a>
-
-        </div>
-
-    `);
-
-    markers.push(marker{{ $item->id }});
+markers.push(marker{{ $item->id }});
 
 @endforeach
 
 
 
 // =====================================
-// AUTO FIT ALL MARKERS
+// FIT BOUNDS
 // =====================================
 
 if(markers.length > 0){
 
     let group = L.featureGroup(markers);
 
-    map.fitBounds(group.getBounds());
+    map.fitBounds(
+        group.getBounds(),
+        {
+            padding: [40,40]
+        }
+    );
 
 }
 
 
 
 // =====================================
-// SEARCH AUTO FOCUS MAP
+// SEARCH
 // =====================================
 
 $('#searchInput').on('keyup', function(){
@@ -296,9 +716,12 @@ $('#searchInput').on('keyup', function(){
 
         if(markers.length > 0){
 
-            let group = L.featureGroup(markers);
+            let group =
+                L.featureGroup(markers);
 
-            map.fitBounds(group.getBounds());
+            map.fitBounds(
+                group.getBounds()
+            );
 
         }
 
@@ -309,36 +732,83 @@ $('#searchInput').on('keyup', function(){
 
     @foreach($locations as $item)
 
-        if(
+    if(
 
-            "{{ strtolower($item->nama_lokasi) }}"
-                .includes(value)
+        "{{ strtolower($item->nama_lokasi) }}"
+            .includes(value)
 
-            ||
+        ||
 
-            "{{ strtolower($item->category) }}"
-                .includes(value)
+        "{{ strtolower($item->category) }}"
+            .includes(value)
 
-            ||
+        ||
 
-            "{{ strtolower($item->kecamatan) }}"
-                .includes(value)
+        "{{ strtolower($item->kecamatan) }}"
+            .includes(value)
 
-        ){
+    ){
 
-            map.setView(
-                [
-                    {{ $item->latitude }},
-                    {{ $item->longitude }}
-                ],
-                17
-            );
+        map.flyTo(
+            [
+                {{ $item->latitude }},
+                {{ $item->longitude }}
+            ],
+            17,
+            {
+                duration: 1
+            }
+        );
 
-            marker{{ $item->id }}.openPopup();
 
-        }
+
+        $('#detailTitle').text(
+            '{{ $item->nama_lokasi }}'
+        );
+
+        $('#detailCategory').text(
+            '{{ $item->category }}'
+        );
+
+        $('#detailKecamatan').text(
+            'Kecamatan {{ $item->kecamatan }}'
+        );
+
+        $('#detailAlamat').text(
+            '{{ $item->jalan }}'
+        );
+
+        $('#detailImage').attr(
+            'src',
+            '{{ asset("img/location/".$item->foto) }}'
+        );
+
+        $('#detailRoute').attr(
+            'href',
+            'https://www.google.com/maps/dir/?api=1&destination={{ $item->latitude }},{{ $item->longitude }}'
+        );
+
+
+
+        $('#locationDetail')
+            .removeClass('hidden');
+
+    }
 
     @endforeach
+
+});
+
+
+
+// =====================================
+// CLOSE DETAIL
+// =====================================
+
+$('#closeDetail').on('click', function(){
+
+    $('#locationDetail')
+        .addClass('hidden');
 
 });
 

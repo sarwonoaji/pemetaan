@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Location extends Model
+{
+    protected $fillable = [
+        'nama_lokasi',
+        'category',
+        'foto',
+        'jalan',
+        'desa',
+        'kelurahan',
+        'kecamatan',
+        'kabupaten',
+        'provinsi',
+        'latitude',
+        'longitude'
+    ];
+
+}

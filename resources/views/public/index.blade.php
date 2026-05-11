@@ -1,5 +1,6 @@
 @extends('layouts.public')
 
+@section('title', 'Home')
 @section('content')
 
 <div class="mobile-app">
@@ -116,7 +117,7 @@
 
             <a href="{{ route(
                 'public.kabupaten.category',
-                'Sukoharjo'
+                'KABUPATEN SUKOHARJO'
             ) }}"
                class="text-decoration-none">
 

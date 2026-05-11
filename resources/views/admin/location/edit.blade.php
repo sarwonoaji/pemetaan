@@ -96,7 +96,7 @@
                 <select name="provinsi"
                         id="provinsi"
                         class="form-control"
-                        disabled>
+                        >
 
 
                 </select>
@@ -112,7 +112,7 @@
                 <select name="kabupaten"
                         id="kabupaten"
                         class="form-control"
-                        disabled>
+                        >
 
                 </select>
 

@@ -23,7 +23,7 @@
                 <input type="text"
                        name="category"
                        class="form-control"
-                       value="{{ $category->category }}">
+                       value="{{ $category->category }}" required>
 
             </div>
 

@@ -4,20 +4,9 @@
     <i class="fa fa-bars"></i>
 </button>
 
-<form class="d-none d-sm-inline-block form-inline mr-auto">
-    <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Search">
-    </div>
-</form>
-
 <ul class="navbar-nav ml-auto">
 
-<li class="nav-item dropdown no-arrow mx-1">
-    <a class="nav-link" href="#">
-        <i class="fas fa-bell fa-fw"></i>
-        <span class="badge badge-danger badge-counter">3+</span>
-    </a>
-</li>
+
 
 <li class="nav-item dropdown no-arrow">
     <a class="nav-link dropdown-toggle" href="#">

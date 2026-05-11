@@ -24,7 +24,7 @@
                 <input type="text"
                        name="nama_lokasi"
                        class="form-control"
-                       placeholder="Masukkan nama lokasi">
+                       placeholder="Masukkan nama lokasi" required>
 
             </div>
 
@@ -35,7 +35,7 @@
                 <label>Category</label>
 
                 <select name="category"
-                        class="form-control">
+                        class="form-control" required>
 
                     <option value="">
                         -- Pilih Category --
@@ -111,7 +111,7 @@
 
                 <select name="kecamatan"
                         id="kecamatan"
-                        class="form-control">
+                        class="form-control" required>
 
                     <option value="">
                         -- Pilih Kecamatan --
@@ -129,7 +129,7 @@
 
                 <select name="kelurahan"
                         id="kelurahan"
-                        class="form-control">
+                        class="form-control" required>
 
                     <option value="">
                         -- Pilih Kelurahan --
@@ -148,7 +148,7 @@
                 <input type="text"
                        name="desa"
                        class="form-control"
-                       placeholder="Masukkan desa">
+                       placeholder="Masukkan desa" required>
 
             </div>
 
@@ -160,7 +160,7 @@
                 <textarea name="jalan"
                           class="form-control"
                           rows="3"
-                          placeholder="Masukkan nama jalan"></textarea>
+                          placeholder="Masukkan nama jalan" required></textarea>
 
             </div>
 
@@ -174,7 +174,7 @@
                        id="latitude"
                        name="latitude"
                        class="form-control"
-                       readonly>
+                       readonly required>
 
             </div>
 
@@ -188,7 +188,7 @@
                        id="longitude"
                        name="longitude"
                        class="form-control"
-                       readonly>
+                       readonly required>
 
             </div>
 

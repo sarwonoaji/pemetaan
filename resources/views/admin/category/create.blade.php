@@ -19,7 +19,7 @@
                 <input type="text"
                        name="category"
                        class="form-control"
-                       placeholder="Masukkan category">
+                       placeholder="Masukkan category" required>
             </div>
 
             <button type="submit" class="btn btn-primary">

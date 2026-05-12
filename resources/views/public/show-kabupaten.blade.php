@@ -1,5 +1,6 @@
 @extends('layouts.public')
 
+@section('title', 'Lokasi di Kabupaten ' . $kabupaten)
 @section('content')
 
 <div class="maps-app">

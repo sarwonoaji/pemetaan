@@ -1,5 +1,6 @@
 @extends('layouts.public')
 
+@section('title', 'Category Kecamatan ' . $kecamatan)
 @section('content')
 
 <div class="container-fluid py-4">

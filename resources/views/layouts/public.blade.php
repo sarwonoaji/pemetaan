@@ -23,11 +23,7 @@
 
 
 
-    <title>
-
-        {{ config('app.name', 'Geo Sukoharjo') }}
-
-    </title>
+    <title>@yield('title', config('app.name', 'Geo Sukoharjo'))</title>
 
 
 
